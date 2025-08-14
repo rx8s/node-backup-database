@@ -4,8 +4,6 @@ const path = require("path");
 const config = require("./config.js");
 const logs = require("./utils/logger.js");
 
-// module.exports async function backup_sqlserver() {
-
 exports.backupmssql = async () => {
   const results = [];
 
