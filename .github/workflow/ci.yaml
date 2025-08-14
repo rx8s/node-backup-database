@@ -1,0 +1,54 @@
+name: Node.js Backup CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: "npm"
+
+    - name: Install dependencies
+      run: |
+        npm install
+
+    - name: Run tests
+      run: |
+        npm test -- --maxWorkers=2
+
+  backup:
+    runs-on: ubuntu-24.04
+    needs: build-and-test
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set environment variables
+      run: |
+        echo "MODE=mysql,mssql" >> $GITHUB_ENV
+        echo "BACKUP_ROOT=./backups" >> $GITHUB_ENV
+        # คุณสามารถเพิ่ม environment อื่น ๆ จาก .env หรือ GitHub Secrets
+
+    - name: Run backup script
+      run: node index.js
