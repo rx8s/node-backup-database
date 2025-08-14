@@ -66,6 +66,7 @@
    LINE_TO_USER_ID = ''
    
    DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxx/yyyy
+   
    EMAIL_SMTP_SERVER=smtp.gmail.com
    EMAIL_SMTP_PORT=587
    EMAIL_USER=your.email@gmail.com
