@@ -1,7 +1,11 @@
-# Node Backup Database
+# 🛡️ Node Backup Database
 
-สคริปต์ Node.js สำหรับสำรองข้อมูลฐานข้อมูล MySQL และ SQL Server โดยอัตโนมัติ รองรับการตั้งเวลาและการแจ้งเตือนผ่าน Slack
+สคริปต์ Node.js สำหรับสำรองข้อมูลฐานข้อมูล MySQL และ SQL Server โดยอัตโนมัติ รองรับการตั้งเวลาและการแจ้งเตือนผ่าน Discord
 
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
+![Python](https://img.shields.io/badge/node-v22.18.0(LTS)%2B-green)
+![MySQL](https://img.shields.io/badge/Database-MariaDB%20%7C%20MySQL%20%7C%20SQL_Server-yellow)
+![License](https://img.shields.io/badge/license-MIT-brightgreen)
 ## ฟีเจอร์หลัก
 
 - สำรองข้อมูลฐานข้อมูล MySQL และ SQL Server
@@ -29,16 +33,44 @@
 4. สร้างไฟล์ `.env` และกำหนดค่าตัวแปรที่จำเป็น:
 
    ```env
-   BACKUP_ROOT=./backups
-   MYSQL_HOST=localhost
+   DOTENV_CONFIG_DEBUG=false
+   
+   # General
+   BACKUP_ROOT=/var/backup/
+   
+   ENABLE_FTP=false
+   ENABLE_GDRIVE=false
+   
+   # MySQL
    MYSQL_USER=root
-   MYSQL_PASSWORD=yourpassword
-   MYSQL_DATABASES=database1,database2
+   MYSQL_PASSWORD=password
+   MYSQL_DATABASES=db1,db2
+   
+   # SQL Server
    SQLSERVER_HOST=localhost
    SQLSERVER_USER=sa
-   SQLSERVER_PASSWORD=yourpassword
-   SQLSERVER_DATABASES=database1,database2
-   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
+   SQLSERVER_PASSWORD=password
+   SQLSERVER_DATABASES=db3,db4
+   
+   # Push Notify
+   PUSH_URL=https://example.com/push-msg
+   
+   # FTP
+   FTP_HOST=ftp.example.com
+   FTP_USER=ftpuser
+   FTP_PASSWORD=ftppassword
+   FTP_REMOTE_PATH=/backup
+   
+   
+   LINE_CHANNEL_ACCESS_TOKEN = ''
+   LINE_TO_USER_ID = ''
+   
+   DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxx/yyyy
+   EMAIL_SMTP_SERVER=smtp.gmail.com
+   EMAIL_SMTP_PORT=587
+   EMAIL_USER=your.email@gmail.com
+   EMAIL_PASSWORD=your_email_password
+   EMAIL_TO=notify.target@example.com
    ```
 
 ## การใช้งาน
