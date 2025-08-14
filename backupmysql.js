@@ -11,7 +11,7 @@ exports.backup_mysql = async () => {
     const dbName = db.trim();
     if (!dbName) continue;
 
-    const dbFolder = path.join(`${config.BACKUP_ROOT}/mysql/`, dbName);
+    const dbFolder = path.join(`${config.BACKUP_ROOT}/mysql`, dbName);
     fs.mkdirSync(dbFolder, { recursive: true });
 
     const dateStr = new Date().toISOString().slice(0, 10);

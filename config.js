@@ -1,8 +1,7 @@
 const dotenv = require("dotenv")
 dotenv.config();
 
-
-const BACKUP_ROOT = process.env.BACKUP_ROOT || "./backups";
+const BACKUP_ROOT = process.env.BACKUP_ROOT || "/var/backup";
 
 const MYSQL = {
   USER: process.env.MYSQL_USER,
