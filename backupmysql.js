@@ -1,10 +1,8 @@
-const exec = require("child_process");
+const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const config = require("./config.js");
 const logs = require("./utils/logger.js");
-
-// module.exports async function backup_mysql() {
 
 exports.backup_mysql = async () => {
   const results = [];
@@ -13,7 +11,7 @@ exports.backup_mysql = async () => {
     const dbName = db.trim();
     if (!dbName) continue;
 
-    const dbFolder = path.join(config.BACKUP_ROOT, dbName);
+    const dbFolder = path.join(`${config.BACKUP_ROOT}/mysql/`, dbName);
     fs.mkdirSync(dbFolder, { recursive: true });
 
     const dateStr = new Date().toISOString().slice(0, 10);

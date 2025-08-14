@@ -6,7 +6,9 @@ const ftp = require("./middlewares/ftp.js");
 const logs = require("./utils/logger.js");
 const noty = require("./utils/noty.js");
 
-const mode = process.env.MODE || "mysql,mssql"; // mysql, mssql, or both
+//const mode = process.env.MODE || "mysql,mssql"; // mysql, mssql, or both
+//const mode = process.env.MODE || "mysql,mssql"; // mysql, mssql, or both
+const mode = process.env.MODE || "mysql"; // mysql, mssql, or both
 
 (async () => {
   const startTime = new Date();

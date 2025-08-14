@@ -1,4 +1,4 @@
-const exec = require("child_process");
+const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const config = require("./config.js");
@@ -13,7 +13,7 @@ exports.backupmssql = async () => {
     const dbName = db.trim();
     if (!dbName) continue;
 
-    const dbFolder = path.join(config.BACKUP_ROOT, dbName);
+    const dbFolder = path.join(`${config.BACKUP_ROOT}/mssql`, dbName);
     fs.mkdirSync(dbFolder, { recursive: true });
 
     const dateStr = new Date().toISOString().slice(0, 10);
