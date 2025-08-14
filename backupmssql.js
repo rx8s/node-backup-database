@@ -1,17 +1,19 @@
-const { exec } = require("child_process");
+const exec = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const { BACKUP_ROOT, SQLSERVER } = require("../config.js");
-const { logger } = require("../utils/logger.js");
+const config = require("./config.js");
+const logs = require("./utils/logger.js");
 
-export async function backup_sqlserver() {
+// module.exports async function backup_sqlserver() {
+
+exports.backupmssql = async () => {
   const results = [];
 
-  for (const db of SQLSERVER.DATABASES) {
+  for (const db of config.SQLSERVER.DATABASES) {
     const dbName = db.trim();
     if (!dbName) continue;
 
-    const dbFolder = path.join(BACKUP_ROOT, dbName);
+    const dbFolder = path.join(config.BACKUP_ROOT, dbName);
     fs.mkdirSync(dbFolder, { recursive: true });
 
     const dateStr = new Date().toISOString().slice(0, 10);
@@ -20,14 +22,14 @@ export async function backup_sqlserver() {
     const backupType = (new Date().getDay() === 0) ? "DATABASE" : "LOG";
     const sql = `BACKUP ${backupType} [${dbName}] TO DISK = N'${path.resolve(filePath)}' WITH INIT`;
 
-    const cmd = `sqlcmd -S ${SQLSERVER.HOST} -U ${SQLSERVER.USER} -P ${SQLSERVER.PASSWORD} -Q "${sql}"`;
+    const cmd = `sqlcmd -S ${config.SQLSERVER.HOST} -U ${config.SQLSERVER.USER} -P ${config.SQLSERVER.PASSWORD} -Q "${sql}"`;
 
     try {
       await execPromise(cmd);
-      logger.info(`SQL Server backup completed: ${filePath}`);
+      logs.logger.info(`SQL Server backup completed: ${filePath}`);
       results.push(filePath);
     } catch (err) {
-      logger.error(`SQL Server backup failed for ${dbName}: ${err}`);
+      logs.logger.error(`SQL Server backup failed for ${dbName}: ${err}`);
     }
   }
 

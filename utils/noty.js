@@ -1,7 +1,7 @@
 const axios = require("axios");
-const { logger } = require("./logger.js");
+const logs = require("./logger.js");
 
-export async function notify({ message, startTime, endTime, pushUrl }) {
+exports.notify = async ({ message, startTime, endTime, pushUrl }) => {
   if (!pushUrl) return;
   try {
     await axios.post(pushUrl, {
@@ -9,8 +9,8 @@ export async function notify({ message, startTime, endTime, pushUrl }) {
       startTime: startTime.toISOString(),
       endTime: endTime.toISOString(),
     });
-    logger.info("Notification sent successfully");
+    logs.logger.info("Notification sent successfully");
   } catch (err) {
-    logger.error(`Notification failed: ${err.message}`);
+    logs.logger.error(`Notification failed: ${err.message}`);
   }
 }

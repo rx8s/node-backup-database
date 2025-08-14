@@ -1,0 +1,36 @@
+2025-08-14T07:24:58.149Z [error] MySQL backup failed for db1: TypeError: exec is not a function
+2025-08-14T07:24:58.149Z [error] MySQL backup failed for db2: TypeError: exec is not a function
+2025-08-14T07:24:58.149Z [error] SQL Server backup failed for db3: TypeError: exec is not a function
+2025-08-14T07:24:58.149Z [error] SQL Server backup failed for db4: TypeError: exec is not a function
+2025-08-14T07:24:58.908Z [error] Notification failed: Request failed with status code 403
+2025-08-14T07:24:58.909Z [info] Backup job finished.
+2025-08-14T07:27:21.114Z [error] MySQL backup failed for db1: TypeError: exec is not a function
+2025-08-14T07:27:21.114Z [error] MySQL backup failed for db2: TypeError: exec is not a function
+2025-08-14T07:27:21.115Z [error] SQL Server backup failed for db3: TypeError: exec is not a function
+2025-08-14T07:27:21.115Z [error] SQL Server backup failed for db4: TypeError: exec is not a function
+2025-08-14T07:27:21.851Z [error] Notification failed: Request failed with status code 403
+2025-08-14T07:27:21.852Z [info] Backup job finished.
+2025-08-14T07:27:24.251Z [error] MySQL backup failed for db1: TypeError: exec is not a function
+2025-08-14T07:27:24.251Z [error] MySQL backup failed for db2: TypeError: exec is not a function
+2025-08-14T07:27:24.252Z [error] SQL Server backup failed for db3: TypeError: exec is not a function
+2025-08-14T07:27:24.252Z [error] SQL Server backup failed for db4: TypeError: exec is not a function
+2025-08-14T07:27:26.335Z [error] Notification failed: Request failed with status code 403
+2025-08-14T07:27:26.336Z [info] Backup job finished.
+2025-08-14T07:28:10.325Z [error] MySQL backup failed for db1: TypeError: exec is not a function
+2025-08-14T07:28:10.326Z [error] MySQL backup failed for db2: TypeError: exec is not a function
+2025-08-14T07:28:10.326Z [error] SQL Server backup failed for db3: TypeError: exec is not a function
+2025-08-14T07:28:10.326Z [error] SQL Server backup failed for db4: TypeError: exec is not a function
+2025-08-14T07:28:11.099Z [error] Notification failed: Request failed with status code 403
+2025-08-14T07:28:11.099Z [info] Backup job finished.
+2025-08-14T07:30:49.604Z [error] MySQL backup failed for db1: TypeError: exec is not a function
+2025-08-14T07:30:49.605Z [error] MySQL backup failed for db2: TypeError: exec is not a function
+2025-08-14T07:30:49.605Z [error] SQL Server backup failed for db3: TypeError: exec is not a function
+2025-08-14T07:30:49.605Z [error] SQL Server backup failed for db4: TypeError: exec is not a function
+2025-08-14T07:30:50.532Z [error] Notification failed: Request failed with status code 403
+2025-08-14T07:30:50.533Z [info] Backup job finished.
+2025-08-14T07:38:38.784Z [error] MySQL backup failed for db1: TypeError: exec is not a function
+2025-08-14T07:38:38.784Z [error] MySQL backup failed for db2: TypeError: exec is not a function
+2025-08-14T07:38:38.785Z [error] SQL Server backup failed for db3: TypeError: exec is not a function
+2025-08-14T07:38:38.785Z [error] SQL Server backup failed for db4: TypeError: exec is not a function
+2025-08-14T07:38:40.124Z [error] Notification failed: Request failed with status code 403
+2025-08-14T07:38:40.124Z [info] Backup job finished.

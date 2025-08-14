@@ -1,10 +1,10 @@
-const { backup_mysql } = require("./backup/backup_mysql.js");
-const { backup_sqlserver } = require("./backup/backup_sqlserver.js");
-const { GDRIVE, FTP, PUSH_URL } = require("./config.js");
-const { logger } = require("./utils/logger.js");
-const { upload_to_gdrive } = require("./upload/upload_gdrive.js");
-const { upload_to_ftp } = require("./upload/upload_ftp.js");
-const { notify } = require("./utils/notify.js");
+const backupmysql = require("./backupmysql.js");
+const backupmssql = require("./backupmssql.js");
+const config = require("./config.js");
+const gdrive = require("./middlewares/gdrive.js");
+const ftp = require("./middlewares/ftp.js");
+const logs = require("./utils/logger.js");
+const noty = require("./utils/noty.js");
 
 const mode = process.env.MODE || "mysql,mssql"; // mysql, mssql, or both
 
@@ -13,26 +13,26 @@ const mode = process.env.MODE || "mysql,mssql"; // mysql, mssql, or both
   let allFiles = [];
 
   if (mode.includes("mysql")) {
-    const mysqlFiles = await backup_mysql();
+    const mysqlFiles = await backupmysql.backup_mysql();
     allFiles = allFiles.concat(mysqlFiles);
   }
 
   if (mode.includes("mssql")) {
-    const mssqlFiles = await backup_sqlserver();
+    const mssqlFiles = await backupmssql.backupmssql();
     allFiles = allFiles.concat(mssqlFiles);
   }
 
   // Upload
-  if (GDRIVE.ENABLE) await upload_to_gdrive(allFiles);
-  if (FTP.ENABLE) await upload_to_ftp(allFiles);
+  if (config.GDRIVE.ENABLE) await gdrive.upload_to_gdrive(allFiles);
+  if (config.FTP.ENABLE) await ftp.upload_to_ftp(allFiles);
 
   const endTime = new Date();
-  await notify({
+  await noty.notify({
     message: "Backup job completed successfully",
     startTime,
     endTime,
-    pushUrl: PUSH_URL
+    pushUrl: config.PUSH_URL
   });
 
-  logger.info("Backup job finished.");
+  logs.logger.info("Backup job finished.");
 })();

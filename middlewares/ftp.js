@@ -1,9 +1,10 @@
 const fs = require("fs");
 const ftp = require("basic-ftp");
-const { FTP } = require("../config.js");
-const { logger } = require("../utils/logger.js");
+const FTP = require("../config.js");
+const logs = require("../utils/logger.js");
 
-export async function upload_to_ftp(files) {
+
+exports.upload_to_ftp = async (files) => {
   if (!files || files.length === 0) return;
   const client = new ftp.Client();
   client.ftp.verbose = true;
@@ -19,10 +20,10 @@ export async function upload_to_ftp(files) {
     for (const filePath of files) {
       const remotePath = `${FTP.REMOTE_PATH}/${filePath.split("/").pop()}`;
       await client.uploadFrom(filePath, remotePath);
-      logger.info(`Uploaded to FTP: ${filePath}`);
+      logs.logger.info(`Uploaded to FTP: ${filePath}`);
     }
   } catch (err) {
-    logger.error(`FTP upload failed: ${err.message}`);
+    logs.logger.error(`FTP upload failed: ${err.message}`);
   } finally {
     client.close();
   }

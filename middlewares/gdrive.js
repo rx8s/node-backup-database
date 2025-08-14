@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { google } = require("googleapis");
-const { logger } = require("../utils/logger.js");
+const logs = require("../utils/logger.js");
 
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const TOKEN_PATH = "token.json";
@@ -19,8 +19,7 @@ function authorize() {
   }
   return oAuth2Client;
 }
-
-export async function upload_to_gdrive(files) {
+exports.upload_to_gdrive = async (files) => {
   if (!files || files.length === 0) return;
   const auth = authorize();
   const drive = google.drive({ version: "v3", auth });
@@ -30,9 +29,9 @@ export async function upload_to_gdrive(files) {
       const fileMetadata = { name: filePath.split("/").pop() };
       const media = { body: fs.createReadStream(filePath) };
       await drive.files.create({ resource: fileMetadata, media, fields: "id" });
-      logger.info(`Uploaded to GDrive: ${filePath}`);
+      logs.logger.info(`Uploaded to GDrive: ${filePath}`);
     } catch (err) {
-      logger.error(`Failed to upload to GDrive: ${filePath} - ${err.message}`);
+      logs.logger.error(`Failed to upload to GDrive: ${filePath} - ${err.message}`);
     }
   }
 }
