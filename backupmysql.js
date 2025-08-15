@@ -7,7 +7,6 @@ const logs = require("./utils/logger.js");
 exports.backupmysql = async () => {
     const results = [];
     for (const dbName of config.MYSQL.DATABASES) {
-    //config.MYSQL_DATABASES.forEach(dbName => {
         const db = dbName.trim();
         if (!db) return;
 
@@ -19,10 +18,11 @@ exports.backupmysql = async () => {
             const fullPath = path.join(dbFolder, filename);
             let cmd;
             if (isSunday()) {
-                cmd = `mysqldump -u ${config.MYSQL_USER} -p${config.MYSQL_PASSWORD} ${db}`;
+                cmd = `mysqldump -u ${config.MYSQL.USER} -p${config.MYSQL.PASSWORD} ${db}`;
             } else {
-                cmd = `mysqldump --single-transaction --quick --lock-tables=false -u ${config.MYSQL_USER} -p${config.MYSQL_PASSWORD} ${db}`;
+                cmd = `mysqldump --single-transaction --quick --lock-tables=false -u ${config.MYSQL.USER} -p${config.MYSQL.PASSWORD} ${db}`;
             }
+
             console.log(`Backing up MySQL database '${db}' to ${fullPath}`);
             const result = spawnSync('sh', ['-c', cmd], { encoding: 'utf-8', stdio: ['ignore', fs.openSync(fullPath, 'w'), 'pipe'] });
             if (result.status !== 0) {
@@ -37,7 +37,6 @@ exports.backupmysql = async () => {
             logs.logger.error(`MySQL backup failed for ${db}: ${err}`);
             console.error(`Error in MySQL backup for ${db}: ${err}`);
         }
-    //});
     }
     return results;
 }
@@ -69,8 +68,8 @@ function cleanupOldFiles(folder, ext) {
     const files = fs.readdirSync(folder)
         .filter(f => f.endsWith(`.${ext}`))
         .sort();
-    if (files.length > KEEP_DAYS) {
-        files.slice(0, files.length - KEEP_DAYS).forEach(file => {
+    if (files.length > config.KEEP_DAYS) {
+        files.slice(0, files.length - config.KEEP_DAYS).forEach(file => {
             try {
                 fs.unlinkSync(path.join(folder, file));
                 console.log(`Deleted old file: ${file}`);
