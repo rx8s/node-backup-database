@@ -6,6 +6,7 @@ const logs = require("./utils/logger.js");
 
 exports.backupmysql = async () => {
     const results = [];
+    console.log(config.MYSQL)
     for (const dbName of config.MYSQL.DATABASES) {
         const db = dbName.trim();
         if (!db) return;
