@@ -15,7 +15,7 @@ const mode = process.env.MODE || "mysql"; // mysql, mssql, or both
   let allFiles = [];
 
   if (mode.includes("mysql")) {
-    const mysqlFiles = await backupmysql.backup_mysql();
+    const mysqlFiles = await backupmysql.backupmysql();
     allFiles = allFiles.concat(mysqlFiles);
   }
 

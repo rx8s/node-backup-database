@@ -2,6 +2,7 @@ const dotenv = require("dotenv")
 dotenv.config();
 
 const BACKUP_ROOT = process.env.BACKUP_ROOT || "/var/backup";
+const KEEP_DAYS = parseInt(process.env.KEEP_DAYS || "7", 10);
 
 const MYSQL = {
   USER: process.env.MYSQL_USER,
@@ -33,6 +34,7 @@ const GDRIVE = {
 
 module.exports = {
   BACKUP_ROOT,
+  KEEP_DAYS,
   MYSQL,
   SQLSERVER,
   PUSH_URL,
