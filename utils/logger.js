@@ -1,6 +1,7 @@
 const winston = require("winston");
 
-exports.logger = winston.createLogger({
+exports.logger = async () => {
+  winston.createLogger({
   level: "info",
   format: winston.format.combine(
     winston.format.timestamp(),
@@ -11,3 +12,4 @@ exports.logger = winston.createLogger({
     new winston.transports.File({ filename: "backup.log" })
   ],
 });
+} 

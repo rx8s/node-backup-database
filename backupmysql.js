@@ -5,16 +5,18 @@ const config = require("./config.js");
 const logs = require("./utils/logger.js");
 
 exports.backupmysql = async () => {
+    const dn = new Date();
+    await logs.logger.info(`MySQL backup start ${dn}`);
     const results = [];
-    console.log(config.MYSQL)
     for (const dbName of config.MYSQL.DATABASES) {
         const db = dbName.trim();
         if (!db) return;
 
         try {
+            
             const dbFolder = path.join(`${config.BACKUP_ROOT}/mysql`, db);
-            ensureDir(dbFolder);
-            const dateStr = getYesterdayDate();
+            await ensureDir(dbFolder);
+            const dateStr = await getYesterdayDate();
             const filename = `${dateStr}.sql`;
             const fullPath = path.join(dbFolder, filename);
             let cmd;
@@ -30,7 +32,7 @@ exports.backupmysql = async () => {
                 console.error(`MySQL backup failed for ${db}: ${result.stderr}`);
                 return;
             }
-            cleanupOldFiles(dbFolder, "sql");
+            await cleanupOldFiles(dbFolder, "sql");
             console.log(`MySQL backup completed for ${db}`);
             logs.logger.info(`MySQL backup completed: ${db}`);
             results.push(db);
@@ -46,7 +48,7 @@ exports.backupmysql = async () => {
 
 
 // ฟังก์ชันวันที่เมื่อวาน
-function getYesterdayDate() {
+async function getYesterdayDate() {
     const d = new Date();
     d.setDate(d.getDate() - 1);
     return d.toISOString().split('T')[0]; // YYYY-MM-DD
@@ -58,14 +60,14 @@ function isSunday() {
 }
 
 // สร้างโฟลเดอร์ถ้าไม่มี
-function ensureDir(dir) {
+async function ensureDir(dir) {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
 }
 
 // ลบไฟล์เก่าเกิน KEEP_DAYS
-function cleanupOldFiles(folder, ext) {
+async function cleanupOldFiles(folder, ext) {
     const files = fs.readdirSync(folder)
         .filter(f => f.endsWith(`.${ext}`))
         .sort();
