@@ -9,7 +9,7 @@ exports.logger = async () => {
   ),
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: "backup.log" })
+    new winston.transports.File({ filename: "/var/backup/node-backup-database.log" })
   ],
 });
 } 
